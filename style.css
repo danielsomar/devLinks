@@ -41,6 +41,7 @@ body {
   /*AGRUPANDO TODAS AS PROPRIEDADES ACIMA EM UM ÚNICO ATALHO:
   background: color image repeat position size: */
   background: var(--bg-url) no-repeat top center/cover;
+  height: 100vh;
 }
 /*O asterisco é o seletor universal. Assim, a declaração abaixo indica que irá aplicar a mudança a todos os elementos do body:*/
 body * {
@@ -201,4 +202,15 @@ footer {
   padding: 24px 0;
   text-align: center;
   font-size: 14px;
+}
+
+/*media queries: Só funcionam quando há a linha <meta name="viewport" ...> no html*/
+@media (min-width: 700px) {
+  :root {
+    --bg-url: url(./assets/bg-desktop.jpg);
+  }
+
+  .light {
+    --bg-url: url(./assets/bg-desktop-light.jpg);
+  }
 }
