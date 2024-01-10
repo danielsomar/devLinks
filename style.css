@@ -51,9 +51,10 @@ body * {
 /*Setando o estilo das tags com identificador "container" */
 #container {
   /*Visualizando as bordas:*/
-  border: 1px solid red;
+  /* border: 1px solid red; */
   /*Setando as dimensões das bordas:*/
-  width: 360px;
+  width: 100%;
+  max-width: 588px;
   /*A altura não é necessária, o alinhamento segue crescendo para baixo. Dessa forma, podemos omitir o código abaixo para a borda inferior:
   height: 712px; */
   /*Centralizando as margens:
