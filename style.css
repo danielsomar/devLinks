@@ -1,0 +1,203 @@
+/*Por padrão, os navegadores inserem alguns ajustes próprios às páginas exibidas. Aqui iremos resetar estes ajustes, para utilizarmos os nossos ajustes e não os pré-definidos pelo navegador:*/
+
+* {
+  margin: 0;
+  padding: 0;
+  /*o box-sizing serve para fixarmos a largura da caixa para que qualquer preenchimento (uso de padding) não altere a formatação da caixa. O padding fica em segundo lugar, é menos relevante e o browser se vira para formatá-lo ou não dentro dos limites do box-sizing;*/
+  box-sizing: border-box;
+}
+
+:root {
+  /*Definição de Variáveis. --text-color será usada dentro do escopo de body *.*/
+  --text-color: white;
+  --bg-url: url(./assets/bg-mobile.jpg);
+  --stroke-color: rgba(255, 255, 255, 0.5);
+  --surface-color: rgba(255, 255, 255, 0.1);
+  --surface-color-hover: rgba(255, 255, 255, 0.05);
+  --highlight-color: rgba(255, 255, 255, .2);
+  --switch-bg-url: url(./assets/moonStars.svg);
+}
+
+.light {
+  --text-color: black;
+  --bg-url: url(./assets/bg-mobile-light.jpg);
+  --stroke-color: rgba(0, 0, 0, 0.5);
+  --surface-color: rgba(0, 0, 0, 0.05);
+  --surface-color-hover: rgba(0, 0, 0, 0.02);
+  --highlight-color: rgba(0, 0, 0, .1);
+  --switch-bg-url: url(./assets/sun.svg);
+}
+
+body {
+  /*Por padrão a imagem de fundo se repete:
+  background-image: var(--bg-url);
+  /*Para retirar a repetição da imagem de fundo: 
+  background-repeat: no-repeat
+  /*Centralizando a imagem a partir do topo:
+  background-position: top center;
+  /*Para a imagem cobrir todo o espaço visível disponível. Imaginando o uso em dispositivos móveis:
+  background-size: cover;
+
+  /*AGRUPANDO TODAS AS PROPRIEDADES ACIMA EM UM ÚNICO ATALHO:
+  background: color image repeat position size: */
+  background: var(--bg-url) no-repeat top center/cover;
+}
+/*O asterisco é o seletor universal. Assim, a declaração abaixo indica que irá aplicar a mudança a todos os elementos do body:*/
+body * {
+  font-family: "Inter", sans-serif;
+  color: var(--text-color);
+}
+
+/*Setando o estilo das tags com identificador "container" */
+#container {
+  /*Visualizando as bordas:*/
+  border: 1px solid red;
+  /*Setando as dimensões das bordas:*/
+  width: 360px;
+  /*A altura não é necessária, o alinhamento segue crescendo para baixo. Dessa forma, podemos omitir o código abaixo para a borda inferior:
+  height: 712px; */
+  /*Centralizando as margens:
+  margin-right: auto;
+  margin-left: auto;
+  
+  Ajustando as margens laterais automaticamente. Efetua o mesmo de cima com uma única propriedade:
+  margin: auto;
+  
+  Ajustando apenas a margem de topo:
+  margin-top: 56px; 
+  
+  Para entender o ajuste de margin utilizando apenas uma única sentença: o margin pega as quatro propriedades partindo na ordem do relógio: topo, direita, baixo e esquerda;
+  Detalhes:
+  
+  - margin com um único valor: aplica para os quatro lados;
+  
+  - margin com dois valores: aplica o primeiro valor para o topo e o fundo e o segundo valor para as laterais;
+  
+  - margin com três valores: em cima, laterais e embaixo.*/
+  margin: 56px auto 0px;
+  padding: 0  24px;
+}
+
+/*Setando o estilo para a imagem dentro da tag denominada "profile": */
+#profile {
+  text-align: center;
+  padding: 24px;
+}
+#profile img {
+  width: 112px;
+  /*geralmente não precisamos setar a altura no CSS, pois geralmente segue o conteúdo da caixa para rolagem da página. Não precisa ter altura fixa, é bom ser fluido.*/
+  /*Em cada um dos elementos HTML existem algumas regras CSS subjacentes. Uma dessas regras é a regra de display (visualização): none (some da tela); alguns elementos ossuem por padrão o display block (dá toda a largura de tela possível do elemento, forçando qualquer outro elemento para baixo ou antes do atual elemento) enquanto alguns é inline (força com que os elementos continuem na mesma linha, um começa onde o anterior finaliza, NÃO CONSEGUIMOS APLICAR O ESTILO margin:auto PARA CENTRALIZAR SEM TORNAR O DISPLAY DO TIPO BLOCK), podemos definir o elemento pai com texto centralizado.
+  Exemplos de elementos block: <div>;
+  Exemplos de elementos inline: <img>;
+  */
+}
+
+#profile p {
+  /*Os navegadores já possuem font-size: 16, sendo assim, a declaração "font-size: 16px;" é redundante. */
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  margin-top: 8px;
+}
+
+/*Programando  o switch*/
+#switch {
+  position: relative;
+  width: 64px;
+  margin: 4px auto;
+}
+
+
+#switch button{
+  width: 32px;
+  height: 32px;
+  background: white var(--switch-bg-url) no-repeat center;
+  border: 0;
+  border-radius: 9999px;
+  /*Para criarmos uma sobreposição do butão com o track utilizamos a propriedade "position" (dentro do position relative criado acima) e z-index:*/
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.light #switch button {
+  right: 0;
+  left: initial;
+
+}
+
+#switch span {
+  display: block;
+  width: 64px;
+  height: 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 9999px;
+}
+
+/*Editando o estilo dos links: Não queremos links com estilo de lista.*/
+ul {
+  list-style: none;
+  /*A opção display flex trabalha com os elementos dentro da caixa da tag selecionada, no nosso caso, a caixa é ul (lista sem indicadores de ordem) e os elementos internos são os li. O flex faz com que os elementos da caixa fiquem um ao lado do outro de modo flexível, encaixando um elemento aod lado do outro respeitando a largura da caixa mãe. flex-direction é row por padrão */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 0px;
+}
+
+ul li a {
+  border: 1px solid red;
+  height: 56px;
+  /*O display flex cria uma linha central virtual de referência para o alinhamento, por isso usamos a propriedade align-items para alinhar de acordo com essa linha de referência.*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  background: var(--surface-color);
+  border: 1px solid var(--stroke-color);
+  border-radius: 8px;
+  backdrop-filter: blur(4px);
+  /*Para alguns navegadores, algumas propriedades precisam do -webkit-*/
+  -webkit-backdrop-filter: blur(4px);
+  text-decoration: none;
+  font-weight: 500;
+  /*Transicionar do repouso para o hover:*/
+  transition: background 0.2s;
+}
+
+/*pseudo-selector: hover: Aplicações de estilos ao passarmos o mouse acima do elemento.*/
+ul li a:hover {
+  background: var(--surface-color-hover);
+  border: 1.5px solid var(--text-color);
+}
+
+/*SocialLinks:*/
+#socialLinks {
+  display:flex; /*Para habilitar a opção gap
+  gap: 16px;*/
+  padding: 24px 0;
+  font-size: 24px;
+  justify-content: center;
+}
+
+#socialLinks a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  transition: background .2s;
+  border-radius: 50%;
+}
+
+#socialLinks a:hover {
+  background: var(--highlight-color);
+}
+
+footer {
+  padding: 24px 0;
+  text-align: center;
+  font-size: 14px;
+}
